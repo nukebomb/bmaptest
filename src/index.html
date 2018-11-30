@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="container"></div>
+  
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZEBQCngmk1iqZCQn9BRoDnzpbxGS2qdZ"></script>
+  <script>
+    var map = new BMap.Map('container')
+    // var point = new BMap.Point(116.404, 39.915)
+
+    // 初始点位
+    var point = new BMap.Point(104.07795346, 30.67994585)
+    var point1 = new BMap.Point(104.02795346, 30.62994585)
+    var point2 = new BMap.Point(104.04795346, 30.64994585)
+    var point3 = new BMap.Point(104.04795346, 30.68994585)
+
+
+    map.centerAndZoom('成都', 13)
+
+    // 地图主题样式
+    var mapStyle = { style: 'googlelite' }
+    map.setMapStyle(mapStyle)
+
+    // 开启滚轮缩放
+    map.enableScrollWheelZoom(true)
+
+    // 添加标注
+
+    // var marker = new BMap.Marker(point) //创建标注
+    // map.addOverlay(marker) // 将标注添加到地图中
+
+    // 自定义无污染标注的函数
+    function addCleanMarker(point, id) {
+      var cleanIcon = new BMap.Icon('./imgs/clean.png', new BMap.Size(40, 40),{
+
+      })
+      cleanIcon.imageSize = new BMap.Size(40, 40)
+      var cleanMarker = new BMap.Marker(point, { icon: cleanIcon })
+      cleanMarker.id = id
+      
+      cleanMarker.addEventListener("click", function(e) {
+        // console.log(e.currentTarget.id)
+        let opts = {
+          width: 250,
+          height: 100,
+          title: '点位信息',
+          offset: new BMap.Size(0,20)
+        }
+        var infoWindow = new BMap.InfoWindow(`<span>id: ${id}<span></br><span>地理位置：${'青羊区草市街10号'}</span></br>`, opts)
+        map.openInfoWindow(infoWindow, point)
+      })
+      map.addOverlay(cleanMarker)
+    }
+    
+    // 自定义黄色标注的函数
+    function yellowMarker(point, id) {
+      var yellowIcon = new BMap.Icon('./imgs/warning.png', new BMap.Size(40, 40))
+      yellowIcon.imageSize = new BMap.Size(40, 40)
+      var yellowMarker = new BMap.Marker(point, {icon: yellowIcon})
+      map.addOverlay(yellowMarker)
+      yellowMarker.id = id
+      yellowMarker.addEventListener("click", function(e) {
+        // console.log(e.currentTarget.id)
+        let opts = {
+          width: 250,
+          height: 100,
+          title: '点位信息',
+          offset: new BMap.Size(0,20)
+        }
+        var infoWindow = new BMap.InfoWindow(`<span>id: ${id}<span></br><span>地理位置：${'青羊区草市街10号'}</span></br>`, opts)
+        map.openInfoWindow(infoWindow, point)
+      })
+    }
+
+     // 自定义橙色标注的函数
+     function orangeMarker(point, id) {
+      var orangeIcon = new BMap.Icon('./imgs/caveat.png', new BMap.Size(40, 40))
+      orangeIcon.imageSize = new BMap.Size(40, 40)
+      var orangeMarker = new BMap.Marker(point, {icon: orangeIcon})
+      map.addOverlay(orangeMarker)
+
+      orangeMarker.id = id
+      orangeMarker.addEventListener("click", function(e) {
+        console.log(e.currentTarget.id)
+        let opts = {
+          width: 250,
+          height: 100,
+          title: '点位信息',
+          offset: new BMap.Size(0,20)
+        }
+        var infoWindow = new BMap.InfoWindow(`<span>id: ${id}<span></br><span>地理位置：${'青羊区草市街10号'}</span></br>`, opts)
+        map.openInfoWindow(infoWindow, point)
+      })
+      
+    }
+     // 自定义红色标注的函数
+    function redMarker(point, id) {
+      var redIcon = new BMap.Icon('./imgs/danger.png', new BMap.Size(40, 40))
+      redIcon.imageSize = new BMap.Size(40, 40)
+      var redMarker = new BMap.Marker(point, {icon: redIcon})
+      map.addOverlay(redMarker)
+
+        redMarker.id = id
+        redMarker.addEventListener("click", function(e) {
+        console.log(e.currentTarget.id)
+        let opts = {
+          width: 250,
+          height: 100,
+          title: '点位信息',
+          offset: new BMap.Size(0,20)
+        }
+        var infoWindow = new BMap.InfoWindow(`<span>id: ${id}<span></br><span>地理位置：${'青羊区草市街10号'}</span></br>`, opts)
+        map.openInfoWindow(infoWindow, point)
+      })
+    }
+    addCleanMarker(point, 'c-123')
+    yellowMarker(point1, 'y-x21')
+    orangeMarker(point2, 'o-c30')
+    redMarker(point3,'r-j10')
+    
+  </script>
+  <style>
+    #container {
+      width: 800px;
+      height: 600px;
+    }
+  </style>
+</body>
+
+</html>
